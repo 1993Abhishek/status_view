@@ -1,6 +1,7 @@
 // import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:status_view/story_view.dart';
 import 'package:story_view/story_view.dart';
 
 class StatusPage extends StatefulWidget {
@@ -39,17 +40,17 @@ class _StatusPageState extends State<StatusPage> {
 
   List<StoryItem> storyItemsList = [
     StoryItem.text(
-      "Adventure",
-       Colors.green,
+      title: "Adventure",
+       backgroundColor: Colors.green,
     ),
     StoryItem.inlineImage(
-      NetworkImage("https://upload.wikimedia.org/wikipedia/commons/5/5a/Monument_Valley_2.jpg"),
+      url:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Monument_Valley_2.jpg",
       caption: Text("Image of the day"),
       // controller: storyController,
     ),
     StoryItem.pageImage(
 
-        NetworkImage("https://upload.wikimedia.org/wikipedia/commons/7/72/Snow_Scene_at_Shipka_Pass_1.JPG"),
+        url:"https://upload.wikimedia.org/wikipedia/commons/7/72/Snow_Scene_at_Shipka_Pass_1.JPG",
 
       caption: "Trying"
     ),
@@ -141,40 +142,45 @@ class _StatusPageState extends State<StatusPage> {
           SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 18),
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 22,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Color(0xffe6ecf1),
-                    child: Center(
-                      child: Text(
-                        "Click",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
+          GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => StoryViewPage()));
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 18),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 22,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Color(0xffe6ecf1),
+                      child: Center(
+                        child: Text(
+                          "Click",
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black87,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "Geico's Reputation",
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.black87,
+                  SizedBox(
+                    height: 5,
                   ),
-                )
-              ],
+                  Text(
+                    "Geico's Reputation",
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.black87,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -201,7 +207,7 @@ class _StatusPageState extends State<StatusPage> {
           Expanded(
             child: Material(
               child: StoryView(
-                storyItemsList,
+                storyItems: storyItemsList,
                 controller: storyController,
                 onStoryShow: (story){
                   print("Showing a story");
@@ -214,7 +220,7 @@ class _StatusPageState extends State<StatusPage> {
 
               ),
             ),
-          )
+          ),
         ],
       ),
     );
